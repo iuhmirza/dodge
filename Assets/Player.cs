@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Rigidbody2D body;
-    public float speed = 1;
+    public float speed = 10;
     Vector2 velocity;
     float screenHalfWidthInWorldUnits;
     
