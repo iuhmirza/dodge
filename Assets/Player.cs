@@ -38,4 +38,9 @@ public class Player : MonoBehaviour
             body.position = new Vector2(screenHalfWidthInWorldUnits, -3f);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
+    }
 }

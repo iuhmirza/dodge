@@ -25,7 +25,7 @@ public class FallerSpawner : MonoBehaviour
     void SpawnFaller()
     {
         float randomSpawnSize = Random.Range(0.5f, 1.5f);
-        Vector2 randomSpawnPosition = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x), screenHalfSizeWorldUnits.y + 0.5f);
+        Vector2 randomSpawnPosition = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x), screenHalfSizeWorldUnits.y + randomSpawnSize);
         Vector3 randomSpawnRotation = Vector3.forward * Random.Range(0, 59);
 
         GameObject newFaller = (GameObject)Instantiate(fallerPrefab, randomSpawnPosition, Quaternion.Euler(randomSpawnRotation));
