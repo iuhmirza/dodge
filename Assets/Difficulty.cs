@@ -16,10 +16,10 @@ public class Difficulty : MonoBehaviour
     private void Start()
     {
         screenSize = new Vector2(Camera.main.aspect * Camera.main.orthographicSize * 2, Camera.main.orthographicSize * 2);
-        spawnDelay = 2 / screenSize.x;
-        gravityScale = screenSize.x / screenSize.y; // ratio is no good!
+        spawnDelay = 1 / Mathf.Sqrt(screenSize.x);
+        gravityScale = 1f;
         maxSpawnSize = 0.1f * screenSize.x;
-        nextDifficultyIncrease = 10f;
+        nextDifficultyIncrease = 1f;
         nextDifficultyTimer = Time.time;
     }
 
@@ -34,7 +34,7 @@ public class Difficulty : MonoBehaviour
                     gravityScale = Mathf.Min(gravityScale + 0.1f, 2f);
                     break;
                 case 1:
-                    maxSpawnSize = Mathf.Min(maxSpawnSize + 0.1f, screenSize.x / 5);
+                    maxSpawnSize = Mathf.Min(maxSpawnSize + 0.5f, screenSize.x / 3f);
                     break;
                 case 2:
                     spawnDelay = Mathf.Max(spawnDelay - 0.1f, 0.1f);
@@ -42,6 +42,7 @@ public class Difficulty : MonoBehaviour
 
             }
             nextDifficultyTimer = Time.time;
+            nextDifficultyIncrease *= 2;
         }
     }
 
