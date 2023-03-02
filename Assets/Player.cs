@@ -42,10 +42,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (OnPlayerDeath != null)
+        //if (OnPlayerDeath != null)
         {
-            OnPlayerDeath();
+        //    OnPlayerDeath();
         }
-        Destroy(gameObject);
+       // Destroy(gameObject);
     }
 }
