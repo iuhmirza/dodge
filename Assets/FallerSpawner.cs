@@ -20,6 +20,7 @@ public class FallerSpawner : MonoBehaviour
         nextDifficultyIncrease = Time.time + 10f;
         maxSpawnSize = 1.5f;
         gravity = 1f;
+        FindObjectOfType<GameOver>().TheGameIsOver += OnGameOver;
     }
 
     // Update is called once per frame
@@ -43,6 +44,11 @@ public class FallerSpawner : MonoBehaviour
         newFaller.transform.localScale = Vector2.one * randomSpawnSize;
         newFaller.GetComponent<Rigidbody2D>().mass = randomSpawnSize;
         newFaller.GetComponent<Rigidbody2D>().gravityScale = gravity;
+    }
+
+    void OnGameOver()
+    {
+        gravity = 0;
     }
 
 }

@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float speed = 10;
     Vector2 velocity;
     float screenHalfWidthInWorldUnits;
+    public event System.Action OnPlayerDeath;
     
 
     // Start is called before the first frame update
@@ -39,8 +40,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (OnPlayerDeath != null)
+        {
+            OnPlayerDeath();
+        }
         Destroy(gameObject);
     }
 }
