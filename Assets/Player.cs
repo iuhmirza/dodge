@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         float halfPlayerWidth = transform.localScale.x / 2f;
-        screenHalfWidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize + halfPlayerWidth;
+        screenHalfWidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize + halfPlayerWidth / 2f;
     }
 
     // Update is called once per frame
@@ -32,11 +32,11 @@ public class Player : MonoBehaviour
         body.position += velocity * Time.fixedDeltaTime;
         if (body.position.x > screenHalfWidthInWorldUnits)
         {
-            body.position = new Vector2(-screenHalfWidthInWorldUnits, -3f);
+            body.position = new Vector2(-screenHalfWidthInWorldUnits, -2.5f);
         }
         if (body.position.x < -screenHalfWidthInWorldUnits)
         {
-            body.position = new Vector2(screenHalfWidthInWorldUnits, -3f);
+            body.position = new Vector2(screenHalfWidthInWorldUnits, -2.5f);
         }
     }
 
