@@ -7,6 +7,8 @@ public class PlayerWeapon : MonoBehaviour {
     float fireRateTimer;
     float fireRateCooldown;
     Rigidbody2D body;
+    public GameObject projectilePrefab;
+
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
@@ -18,19 +20,40 @@ public class PlayerWeapon : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        RaycastHit2D hitInfo = Physics2D.Raycast(body.position, transform.up);
-        if (hitInfo.collider != null)
-        {
-            Debug.DrawLine(body.position, hitInfo.point, Color.red);
-            if (Input.GetKeyDown(KeyCode.Space) && (fireRateTimer + fireRateCooldown > Time.time))
+        if (Input.GetKeyDown(KeyCode.Space) && (Time.time > fireRateTimer + fireRateCooldown)) {
+            RaycastHit2D hitInfo = Physics2D.Raycast(body.position, transform.up);
+            StartCoroutine(Shoot(body.position, hitInfo));
+            fireRateTimer = Time.time;
+        }
+    }
+
+    IEnumerator Shoot(Vector2 start, RaycastHit2D hit)
+    {
+        GameObject projectile = Instantiate(projectilePrefab);
+        projectile.transform.position = start;
+        if (hit.collider != null) {
+            while (true)
             {
-                fireRateTimer = Time.time;
-                Destroy(hitInfo.collider.gameObject);
+                projectile.transform.position += Vector3.up;
+                yield return null;
+                if (projectile.transform.position.y >= hit.collider.attachedRigidbody.position.y)
+                {
+                    break;
+                }
             }
+        } else {
+            while (true)
+            {
+                projectile.transform.position += Vector3.up;
+                yield return null;
+                if (projectile.transform.position.y >= 5f)
+                {
+                    break;
+                }
+            }
+        
         }
-        else
-        {
-            Debug.DrawLine(body.position, body.transform.position + body.transform.up * 100, Color.green);
-        }
+        Destroy(hit.collider.gameObject);
+        Destroy(projectile);
     }
 }
