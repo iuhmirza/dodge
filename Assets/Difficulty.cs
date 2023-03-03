@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Difficulty : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class Difficulty : MonoBehaviour
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            FindObjectOfType<GameOver>().Over += OnGameOver;
+        }
         screenSize = new Vector2(Camera.main.aspect * Camera.main.orthographicSize * 2, Camera.main.orthographicSize * 2);
         spawnDelay = 1 / Mathf.Sqrt(screenSize.x);
         gravityScale = 1f;
@@ -44,6 +49,15 @@ public class Difficulty : MonoBehaviour
             nextDifficultyTimer = Time.time;
             nextDifficultyIncrease *= 2;
         }
+    }
+
+    void OnGameOver()
+    {
+        spawnDelay = 1 / Mathf.Sqrt(screenSize.x);
+        gravityScale = 2f;
+        maxSpawnSize = screenSize.x / 3f;
+        nextDifficultyIncrease = 5f;
+        nextDifficultyTimer = Time.time;
     }
 
 }

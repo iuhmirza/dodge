@@ -7,11 +7,9 @@ public class FallerSpawner : MonoBehaviour
     public GameObject fallerPrefab;
     public Difficulty difficulty;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Spawn());
-        FindObjectOfType<GameOver>().TheGameIsOver += OnGameOver;
     }
 
     void SpawnFaller()
@@ -36,14 +34,8 @@ public class FallerSpawner : MonoBehaviour
     {
         while (true)
         {
-            SpawnFaller();
             yield return new WaitForSeconds(difficulty.spawnDelay);
+            SpawnFaller();
         }
     }
-
-    void OnGameOver()
-    {
-        difficulty.gravityScale = 0;
-    }
-
 }
